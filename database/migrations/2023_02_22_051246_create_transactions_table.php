@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateTransactionsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('transactions', function (Blueprint $table) {
@@ -21,6 +16,7 @@ class CreateTransactionsTable extends Migration
             $table->double('amount', 8, 2);
             $table->date('period');
             $table->enum('transaction_type', ['income', 'outcome']);
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
@@ -28,11 +24,6 @@ class CreateTransactionsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('transactions');
